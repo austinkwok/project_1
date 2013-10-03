@@ -1,6 +1,8 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+PROJECTS = YAML.load(File.read(File.expand_path('config/projects.yml')))
+PROJECTS.symbolize_keys!
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
