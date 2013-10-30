@@ -1,5 +1,9 @@
-<h1>Austin Kwok</h1>
-<table>
+
+<body style>
+	
+<!-- <h1>Austin Kwok</h1> -->
+
+<table class="table">
 	<thead>
 		<tr>
 			<th>Project Name</th>
@@ -7,21 +11,9 @@
 			<th>URL</th>
 		</tr>
 	</thead>
-	<tbody>
-		<header class="navbar navbar-fixed-top navbar-inverse">
-  <div class="navbar-inner">
-    <div class="container">
-      <%= link_to "sample app", '#', id: "logo" %>
-      <nav>
-        <ul class="nav pull-right">
-          <li><%= link_to "Home",    '#' %></li>
-          <li><%= link_to "Help",    '#' %></li>
-          <li><%= link_to "Sign in", '#' %></li>
-        </ul>
-      </nav>
-    </div>
-  </div>
-</header>
+	
+	<table class="table">
+
 		 <% PROJECTS.each do |project,data| %> 
 			<tr>
 				<td><%= project %></td>
@@ -29,6 +21,7 @@
 				<td><%= link_to data['url'], data['url'] %></a></td>
 			</tr>
 		<% end %>
-	</tbody>
+	</table>
 </table>
 
+</body>

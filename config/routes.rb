@@ -1,4 +1,5 @@
 Project1::Application.routes.draw do
+  get 'pages/calendar'
  	root to: "pages#home"
   get 'pages/project_2' 
   

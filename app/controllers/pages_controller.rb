@@ -1,4 +1,4 @@
 class PagesController < ApplicationController
-  def project_2
+  def home
   end
 end
