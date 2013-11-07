@@ -3,7 +3,9 @@ Project1::Application.routes.draw do
  	root to: "pages#home"
   get 'pages/project_2' 
   
-
+  match '/appointments', to: 'appointments#create', via: 'post'
+    match '/appointments', to: 'appointments#index', via: 'get'
+  
 # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

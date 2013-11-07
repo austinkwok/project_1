@@ -44,10 +44,11 @@ function init_calendar(){
     
     var num_date = 1;
     for (var i = 1; i <= 7 - first_date; i++) {
-        $("#t_body tr:last").append("<td>" + num_date.toString() + "</td>");    
+        $("#t_body tr:last").append("<td data-day='" + i + "'>" + num_date.toString() + "</td>");    
         if (num_date == date && current_month == current.getMonth() && current_year == current.getFullYear()) {
             $("#t_body td:last").css("cssText", "background-color: #eee")
-        } 
+        }
+        
         num_date++;
     }
     
@@ -58,15 +59,48 @@ function init_calendar(){
             if (num_date > get_last_date(current_month,current_year)) {
                 $("#t_body tr:last").append("<td>" + "</td>");
             } else {
-                $("#t_body tr:last").append("<td>" + num_date.toString() + "</td>");
+                $("#t_body tr:last").append("<td data-day='" + num_date + "'>" + num_date.toString() + "</td>");
             }
             
             if (num_date == date && current_month == current.getMonth() && current_year == current.getFullYear()) {
-            $("#t_body td:last").css("cssText", "background-color: #eee")
+            $("#t_body td:last").css("cssText", "background-color: #909090")
         } 
             num_date++;
         }
     }
+    
+    $("#t_body td").click(function(){
+       var input = $("#description").val();
+       var timer = $("#time option:selected").val();
+       var cell = $(this).html();
+       if(input.length > 0 && timer.length > 0 && cell.length > 0){
+                var temp = cell + " " + input + " at " + timer;
+                $(this).text(temp);
+                $.post( "/appointments", { 'appointments':
+                                            {"event":input,
+                                            "time":timer,
+                                            "day": $(this).data('day'),
+                                            "month": current_month,
+                                            "year": current_year }
+                                        });
+                $("#time option:first").prop('selected', 'disabled');
+                $("#description").val("");
+                
+                
+                //post
+                
+            } 
+    });
+    
+    $.get( "/appointments", { "month": current_month,
+                                            "year": current_year },
+                                            function(data){
+                                                $.each(data, function(key, value){
+                                                    $("td[data-day='" + value.day + "']").append(" " +value.event + " at " + value.time);
+                                                });
+                                            }
+                                            );
+    //get
     
 }
 
@@ -105,14 +139,6 @@ $(document).ready(function(){
         init_calendar();
     });
     
-    $("#t_body td").click(function(){
-       var input = $("#description").val();
-       var timer = $("#time option:selected").text();
-       var cell = $(this).html();
-       if(input.length > 0 && timer.length > 0 && cell.length > 0){
-                var temp = cell + " " + input + " at " + timer;
-                $(this).text(temp);
-            } 
-    });
+    
 });
 
